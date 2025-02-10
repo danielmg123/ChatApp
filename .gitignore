@@ -42,3 +42,9 @@ pg_primary_data/
 
 ### Ignore logs ###
 *.log
+
+### environment variable files containing credentials ###
+.env
+
+# Ignore Redis persistence files (RDB snapshots)
+dump.rdb
