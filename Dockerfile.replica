@@ -1,0 +1,13 @@
+FROM postgres:15-alpine
+
+# Copy the custom entrypoint into the container
+COPY replica-entrypoint.sh /usr/local/bin/replica-entrypoint.sh
+
+# Ensure it’s executable
+RUN chmod +x /usr/local/bin/replica-entrypoint.sh
+
+# Set our custom script as the entrypoint
+ENTRYPOINT ["replica-entrypoint.sh"]
+
+# The default CMD remains "postgres", which the official entrypoint also uses
+CMD ["postgres"]
