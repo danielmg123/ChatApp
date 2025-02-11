@@ -1,6 +1,7 @@
 package com.danielmorales.chat.listener;
 
 import com.danielmorales.chat.entity.ChatMessage;
+import com.danielmorales.chat.repository.primary.PrimaryChatMessageRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 public class ChatMessageListener {
 
     @Autowired
-    private ChatMessageRepository chatMessageRepository;
+    private PrimaryChatMessageRepository chatMessageRepository;
 
     @KafkaListener(
             topics = "chat_messages",
@@ -17,10 +18,10 @@ public class ChatMessageListener {
             containerFactory = "kafkaListenerContainerFactory"
     )
     public void listen(ChatMessage message) {
-        // example, save the message to the primary database
+        // Save the message to the primary database
         chatMessageRepository.save(message);
 
-        // can optionally log
+        // Log the message content
         System.out.println("Received message from Kafka: " + message.getContent());
     }
 }
